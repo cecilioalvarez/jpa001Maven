@@ -1,7 +1,7 @@
 package es.avalon.jpa.negocio;
 
 public class Libro {
-	
+	//Clase Libro
 	
 	private String titulo;
 	private String autor;
