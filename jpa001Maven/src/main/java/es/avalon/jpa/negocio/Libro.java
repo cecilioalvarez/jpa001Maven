@@ -1,5 +1,8 @@
 package es.avalon.jpa.negocio;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Libro {
 	
 	
