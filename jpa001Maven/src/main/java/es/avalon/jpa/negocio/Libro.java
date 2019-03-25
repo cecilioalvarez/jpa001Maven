@@ -7,7 +7,7 @@ public class Libro {
 	private String autor;
 	private int paginas;
 
-	public String getTituloo() {
+	public String getTitulo() {
 		return titulo;
 	}
 	public void setTitulo(String titulo) {
