@@ -27,7 +27,6 @@ public class Libro {
 	}
 	
 	
-	
 	public Libro(String titulo, String autor, int paginas) {
 		super();
 		this.titulo = titulo;
