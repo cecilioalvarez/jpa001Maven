@@ -1,8 +1,12 @@
 package es.avalon.jpa.negocio;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Libro {
 	
-	
+	@Id
 	private String titulo;
 	private String autor;
 	private int paginas;
@@ -33,6 +37,13 @@ public class Libro {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.paginas = paginas;
+	}
+	public Libro(String titulo) {
+		super();
+		this.titulo = titulo;
+	}
+	public Libro() {
+		super();
 	}
 
 
