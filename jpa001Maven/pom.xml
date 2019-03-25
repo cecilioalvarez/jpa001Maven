@@ -16,6 +16,13 @@
 	    <artifactId>hibernate-jpa-2.1-api</artifactId>
 	    <version>1.0.2.Final</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
+	<dependency>
+	    <groupId>org.apache.tomcat</groupId>
+	    <artifactId>tomcat-jdbc</artifactId>
+	    <version>9.0.17</version>
+	</dependency>
+	
 	
    </dependencies>
    
