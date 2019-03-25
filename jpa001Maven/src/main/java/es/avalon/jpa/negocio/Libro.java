@@ -34,6 +34,10 @@ public class Libro {
 		this.autor = autor;
 		this.paginas = paginas;
 	}
+	public Libro() {
+		super();
+	}
+	
 
 
 
