@@ -4,20 +4,18 @@
 //import javax.persistence.EntityManagerFactory;
 //import javax.persistence.Persistence;
 //
-//public class Principal {
+//public class Principal3 {
 //
 //	public static void main(String[] args) {
-//
-//		insertarLibro();
-//
 //	
-//
+//	
+//			
+//	insertarCapitulo();
 //	}
 //
-//
-//
-//	private static void insertarLibro() {
-//		Libro libro = new Libro("Java JPA", "Juan", 250);
+//	
+//	private static void insertarCapitulo() {
+//		Capitulo capitulo = new Capitulo("Capitulo_1", 50);
 //
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
 //
@@ -26,7 +24,7 @@
 //		try {
 //			em.getTransaction().begin();
 //			// persist: inserta
-//			em.persist(libro);
+//			em.persist(capitulo);
 //			em.getTransaction().commit();
 //		} catch (Exception e) {
 //
@@ -36,5 +34,4 @@
 //
 //		}
 //	}
-//
 //}

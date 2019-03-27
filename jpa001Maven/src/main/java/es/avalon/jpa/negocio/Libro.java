@@ -1,28 +1,40 @@
 package es.avalon.jpa.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Libro {
+	//se refiere a la propiedad libro de la clase capitulo -->private Libro libro;
 	
 	@Id
 	private String titulo;
 	private String autor;
 	private int paginas;
+	@OneToMany(mappedBy="libro")
+	private List<Capitulo> capitulos = new ArrayList<Capitulo>();
 
-	
-	
+	public List<Capitulo> getCapitulos() {
+		return capitulos;
+	}
+
+	public void setCapitulos(List<Capitulo> capitulos) {
+		this.capitulos = capitulos;
+	}
+
 	public Libro() {
 		super();
 	}
-	
-	
+
 	public Libro(String titulo) {
 		super();
 		this.titulo = titulo;
 	}
-
 
 	public Libro(String titulo, String autor, int paginas) {
 		super();
@@ -31,30 +43,61 @@ public class Libro {
 		this.paginas = paginas;
 	}
 
-
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getAutor() {
 		return autor;
 	}
+
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
+
 	public int getPaginas() {
 		return paginas;
 	}
+
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Libro other = (Libro) obj;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		return true;
+	}
+
 	
+	public void addCapitulos(Capitulo c) {
+		this.capitulos.add(c);
+	}
 	
-
-
-
-
-	
+	public void removeCapitulos(Capitulo c) {
+		this.capitulos.add(c);
+	}
 }
