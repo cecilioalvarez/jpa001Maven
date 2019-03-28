@@ -6,11 +6,17 @@
  
  
  <persistence-unit name="UnidadLibros">
+ 
+ <!-- este es el mapeo de las clases -->
  <class>es.avalon.jpa.negocio.Libro</class>
+ <class>es.avalon.jpa.negocio.Capitulo</class>
  
  <properties>
  <property name= "hibernate.show_sql" value="true" />
+ <!--  dialecto de la base datos -->
  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+<property name="hibernate.type" value="trace"/>
+ <!-- pool de conexion -->
  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
  <property name="javax.persistence.jdbc.user" value="root" />
  <property name="javax.persistence.jdbc.password" value="root" />
