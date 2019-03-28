@@ -4,25 +4,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Principal {
+public class Principal2 {
 
 	public static void main(String[] args) {
 
-		// Libro libro = new Libro("Java JPA","pedro",25);
 		EntityManagerFactory emf=Persistence.createEntityManagerFactory("UnidadLibros");
 		EntityManager em = emf.createEntityManager();
 		
-		Libro l2=em.find(Libro.class,"Java JPA");
-		
-		l2.setPaginas(500);
+		Capitulo c=em.find(Capitulo.class,"Introduccion");
+		c.setPaginas(50);
 		
 		try {
 			em.getTransaction().begin();
 			// em.persist(l2);
-			// em.merge(l2);
-			em.remove(l2);
+			em.merge(c);
+			// em.remove(c);
 			em.getTransaction().commit();
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}finally {
 			em.close();
