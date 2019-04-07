@@ -17,7 +17,7 @@ public class Libro {
 	private String autor;
 	private int paginas;
 	@OneToMany(mappedBy="libro")
-	private List<Capitulo> capitulos = new ArrayList<Capitulo>();
+	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>();
 
 	public List<Capitulo> getCapitulos() {
 		return capitulos;

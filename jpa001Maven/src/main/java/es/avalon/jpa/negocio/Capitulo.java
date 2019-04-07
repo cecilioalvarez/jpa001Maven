@@ -13,7 +13,7 @@ public class Capitulo {
 	private String titulo;
 	private int paginas;
 	@ManyToOne
-	@JoinColumn(name="Libro_Titulo")
+	@JoinColumn(name="libro_titulo")
 	private Libro libro;
 	
 	
