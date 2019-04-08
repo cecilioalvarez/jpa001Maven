@@ -17,7 +17,7 @@ public class Libro {
 	private int paginas;
 	// Se refiere a la propieda libro de la clase capitulo
 	@OneToMany(mappedBy="libro")
-	private List<Capitulo> capitulos;
+	private transient List<Capitulo> capitulos;
 
 	public List<Capitulo> getCapitulos() {
 		return capitulos;
