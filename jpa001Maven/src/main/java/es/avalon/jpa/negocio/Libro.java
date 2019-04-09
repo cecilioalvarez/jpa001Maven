@@ -1,10 +1,38 @@
 package es.avalon.jpa.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.Entity;
+import javax.persistence.EntityResult;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.Transient;
+
+import org.springframework.stereotype.Component;
+
+/*@SqlResultSetMapping(name="LibroMapping",
+classes = {
+ @ConstructorResult(targetClass = Libro.class,
+   columns = {@ColumnResult(name="titulo"), @ColumnResult(name="autor")}
+ )}
+)*/
+
+@Entity
+@Component
 public class Libro {
 
+	@Id
 	private String titulo;
 	private String autor;
 	private int paginas;
+	
+	@OneToMany(mappedBy="libro")
+	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>();
 
 	public Libro() {
 		super();
@@ -15,11 +43,25 @@ public class Libro {
 		this.titulo = titulo;
 	}
 
+	public Libro(String titulo, String autor) {
+		super();
+		this.titulo = titulo;
+		this.autor = autor;
+	}
+	
 	public Libro(String titulo, String autor, int paginas) {
 		super();
 		this.titulo = titulo;
 		this.autor = autor;
-		this.paginas = paginas;
+		paginas = this.getPaginas();
+	}
+	
+	public Libro(String titulo, List<Capitulo> capitulos, String autor, int paginas) {
+		super();
+		this.titulo = titulo;
+		this.autor = autor;
+		this.capitulos = capitulos;
+		paginas = this.getPaginas();
 	}
 
 	public String getTitulo() {
@@ -38,12 +80,38 @@ public class Libro {
 		this.autor = autor;
 	}
 
-	public int getPaginas() {
-		return paginas;
+	public void setPaginas() {
+		this.paginas = this.getPaginas();
 	}
 
-	public void setPaginas(int paginas) {
-		this.paginas = paginas;
+	public int getPaginas() {
+		
+		this.paginas = 0;
+		
+		for(Capitulo c : this.capitulos) {
+			
+			this.paginas += c.getPaginas();
+		}
+		
+		return paginas;
+	}
+	
+	public List<Capitulo> getCapitulos() {
+		return capitulos;
+	}
+
+	public void setCapitulos(List<Capitulo> capitulos) {
+		this.capitulos = capitulos;
+	}
+
+	public void addCapitulo(Capitulo c) {
+		
+		this.capitulos.add(c);
+	}
+	
+	public void removeCapitulo(Capitulo c) {
+		
+		this.capitulos.remove(c);
 	}
 
 	@Override
@@ -70,5 +138,12 @@ public class Libro {
 			return false;
 		return true;
 	}
+	
+	@PostLoad
+	private void postLoad() {
+		
+	    this.paginas = this.getPaginas();
+	}
+
 	
 }
