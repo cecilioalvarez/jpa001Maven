@@ -15,7 +15,7 @@ public class Libro {
 	private String autor;
 	private int pagina;
 	@OneToMany(mappedBy="libro") 	// se refiere a la propiedad de la clase capitulo
-	private List<Capitulo> capitulos = new ArrayList<Capitulo>();
+	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>(); //transient para que vaya en jquery
 	
 	public void addCapitulo(Capitulo c) {
 		this.capitulos.add(c);
