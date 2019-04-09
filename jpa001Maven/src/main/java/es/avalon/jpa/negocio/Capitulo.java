@@ -1,29 +1,27 @@
 package es.avalon.jpa.negocio;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import javax.persistence.*;
 
-import es.avalon.utilidades.persistencia.DBhelper;
-
+@Entity
 public class Capitulo {
+	
+	@Id // Define que el titulo es la clase primaria
 	private String titulo;
 	private int paginas;
-	private String Libro_Titulo;
+	@ManyToOne
+	@JoinColumn(name = "Libro_Titulo")
+	private Libro libro;
 	
-	public Capitulo(String titulo, int paginas, String libro_Titulo) {
+	public Capitulo(String titulo, int paginas, Libro libro) {
 		super();
 		this.titulo = titulo;
 		this.paginas = paginas;
-		Libro_Titulo = libro_Titulo;
+		this.libro = libro;
 	}
 	
 	public Capitulo(String titulo, String libro_Titulo) {
 		super();
 		this.titulo = titulo;
-		Libro_Titulo = libro_Titulo;
 	}
 	
 	public Capitulo() {
@@ -46,12 +44,12 @@ public class Capitulo {
 		this.paginas = paginas;
 	}
 
-	public String getLibro_Titulo() {
-		return Libro_Titulo;
+	public Libro getLibro() {
+		return libro;
 	}
 
-	public void setLibro_Titulo(String libro_Titulo) {
-		Libro_Titulo = libro_Titulo;
+	public void setLibro(Libro libro) {
+		this.libro = libro;
 	}
 
 	@Override
