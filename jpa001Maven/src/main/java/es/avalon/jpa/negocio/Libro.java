@@ -16,8 +16,9 @@ public class Libro {
 	private int paginas;
 	
 	// se refiere a la propiedad libro de la clase capitulo
+	
 	@OneToMany(mappedBy="libro")
-	private List<Capitulo> capitulos= new ArrayList<Capitulo>();
+	private transient List<Capitulo> capitulos= new ArrayList<Capitulo>();
 
 	
 	public List<Capitulo> getCapitulos() {
