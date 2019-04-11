@@ -5,17 +5,38 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Libro {
 
 	@Id
+	@NotEmpty //valida que el libro es correcto antes de insertar
+	@Pattern(regexp="^[A-Za-z]{5,10}$")
 	private String titulo;
 	private String autor;
 	private int pagina;
 	@OneToMany(mappedBy="libro") 	// se refiere a la propiedad de la clase capitulo
-	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>(); //transient para que vaya en jquery
+	private List<Capitulo> capitulos = new ArrayList<Capitulo>(); //transient para que vaya en jquery JSON
+	
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
+	@ManyToMany
+	@JoinTable(
+			name="CategoriaLibro",
+			joinColumns = @JoinColumn(name ="Libro_titulo"),
+			inverseJoinColumns = @JoinColumn(name = "Categoria_id"))
+	public void addCategoria(Categoria cat) {
+		categorias.add(cat);
+	}
+	public void removeCategoria(Categoria cat) {
+		categorias.remove(cat);
+	}
 	
 	public void addCapitulo(Capitulo c) {
 		this.capitulos.add(c);
@@ -95,6 +116,12 @@ public class Libro {
 	public Libro(String titulo) {
 		super();
 		this.titulo = titulo;
+	}
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 }
