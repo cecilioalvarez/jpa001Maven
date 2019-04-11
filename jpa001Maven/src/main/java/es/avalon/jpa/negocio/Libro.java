@@ -5,18 +5,39 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Libro {
 	
 	@Id
+	@NotEmpty
+	@Pattern(regexp="^[A-Za-z]{3,10}$")
 	private String titulo;
 	private String autor;
 	private int paginas;
 	@OneToMany(mappedBy="libro")  //relacion entre Libro Capitulo
 	//se refiere a la propiedad libro de la clase Capitulo
-	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>();
+	private List<Capitulo> capitulos = new ArrayList<Capitulo>();  // transient para que tirara JSON no fuera circulares.
+	@ManyToMany
+	@JoinTable(
+			  name = "categoriaLibro", 
+			  joinColumns = @JoinColumn(name = "Libro_titulo"), 
+			  inverseJoinColumns = @JoinColumn(name = "Categoria_id"))
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
+	public void addCategoria(Categoria c) {
+		categorias.add(c);
+	}
+	
+	public void removeCategoria(Categoria c) {
+		categorias.remove(c);
+	}
 
 	public void addCapitulo(Capitulo c) {
 		this.capitulos.add(c);
@@ -91,7 +112,15 @@ public class Libro {
 		return true;
 	}
 
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
 
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	
 
 	
 }

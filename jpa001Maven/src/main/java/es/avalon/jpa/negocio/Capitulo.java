@@ -4,11 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Capitulo {
 	
 	@Id
+	@NotEmpty
 	private String titulo;
 	private int paginas;
 	//defino una propiedad que es un objeto complejo utilizando composicion
