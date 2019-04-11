@@ -1,24 +1,39 @@
 package es.avalon.jpa.negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="Libros")
 public class Libro {
 	
 	@Id
+	@NotBlank
+	@Pattern(regexp = "[A-Za-z]{2,10}$")
 	private String titulo;
 	private String autor;
 	private int paginas;
+	
 	// Se refiere a la propieda libro de la clase capitulo
 	@OneToMany(mappedBy="libro")
-	private transient List<Capitulo> capitulos;
-
+	private List<Capitulo> capitulos;
+	
+	@ManyToMany
+	@JoinTable(name = "CategoriaLibro",
+			joinColumns = @JoinColumn(name="libro_titulo"),
+			inverseJoinColumns = @JoinColumn(name="categoria_id"))
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
 	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}
@@ -85,7 +100,21 @@ public class Libro {
 			return false;
 		return true;
 	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 	
+	public void addCategoria(Categoria c) {
+		this.categorias.add(c);
+	}
 	
+	public void removeCategoria(Categoria c) {
+		this.categorias.remove(c);
+	}
 	
 }
