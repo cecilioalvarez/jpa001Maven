@@ -11,7 +11,8 @@
 <!--  este es el mapeo de las clases -->
  <class>es.avalon.jpa.negocio.Libro</class>
   <class>es.avalon.jpa.negocio.Capitulo</class>
-  
+   <class>es.avalon.jpa.negocio.Categoria</class>
+   
  <properties>
  <property name= "hibernate.show_sql" value="true" />
  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

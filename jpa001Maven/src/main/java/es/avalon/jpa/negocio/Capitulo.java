@@ -1,12 +1,14 @@
 package es.avalon.jpa.negocio;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Capitulo {
+public class Capitulo implements Serializable {
 	//defino una propiedad que es un objeto complejo,SE OBTIENE TODO EL OBJETO ->@ManyToOne 
 	
 	@Id

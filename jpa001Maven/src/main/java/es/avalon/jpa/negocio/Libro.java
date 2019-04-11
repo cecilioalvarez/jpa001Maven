@@ -1,24 +1,43 @@
 package es.avalon.jpa.negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
-public class Libro {
+public class Libro implements Serializable{
 	//se refiere a la propiedad libro de la clase capitulo -->private Libro libro;
 	
 	@Id
+	@NotEmpty
+	@Pattern(regexp="^[A-Za-z]{5,10}$")
 	private String titulo;
 	private String autor;
 	private int paginas;
+	
 	@OneToMany(mappedBy="libro")
-	private transient List<Capitulo> capitulos = new ArrayList<Capitulo>();
-
+	private List<Capitulo> capitulos = new ArrayList<Capitulo>(); 
+	//private transient List<Capitulo> capitulos = new ArrayList<Capitulo>(); 
+		//se utiliza para ajax gson jquery
+	
+	
+	@ManyToMany
+	@JoinTable(
+			name="CategoriaLibro",
+			joinColumns = @JoinColumn(name = "libro_titulo"),
+			inverseJoinColumns = @JoinColumn(name="categoria_id"))
+	private List<Categoria> categorias = new ArrayList<Categoria>(); 
+	
 	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}
@@ -67,6 +86,14 @@ public class Libro {
 		this.paginas = paginas;
 	}
 
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,5 +126,13 @@ public class Libro {
 	
 	public void removeCapitulos(Capitulo c) {
 		this.capitulos.add(c);
+	}
+	
+	public void addCategoria(Categoria c) {
+		this.categorias.add(c);
+	}
+	
+	public void removeCategoria(Categoria c) {
+		this.categorias.add(c);
 	}
 }
