@@ -23,14 +23,14 @@ public class Libro {
 	private int pagina;
 	@OneToMany(mappedBy="libro") 	// se refiere a la propiedad de la clase capitulo
 	private List<Capitulo> capitulos = new ArrayList<Capitulo>(); //transient para que vaya en jquery JSON
-	
-	private List<Categoria> categorias = new ArrayList<Categoria>();
-	
 	@ManyToMany
 	@JoinTable(
 			name="CategoriaLibro",
 			joinColumns = @JoinColumn(name ="Libro_titulo"),
 			inverseJoinColumns = @JoinColumn(name = "Categoria_id"))
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
+	
 	public void addCategoria(Categoria cat) {
 		categorias.add(cat);
 	}

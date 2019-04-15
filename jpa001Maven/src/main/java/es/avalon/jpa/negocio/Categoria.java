@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -12,7 +13,8 @@ public class Categoria {
 	@Id
 	private int id;
 	private String nombre;
-	@ManyToMany(mappedBy="categorias")
+	@ManyToMany(fetch=FetchType.EAGER,
+			mappedBy="categorias")
 	private List<Libro> libros=new ArrayList<Libro>();
 	
 	public void addLibro(Libro libro) {
