@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -19,10 +21,13 @@ public class Libro implements Serializable{
 	//se refiere a la propiedad libro de la clase capitulo -->private Libro libro;
 	
 	@Id
-	@NotEmpty
+	@NotEmpty(message = "HOLA MUNDO")
 	@Pattern(regexp="^[A-Za-z]{5,10}$")
 	private String titulo;
+	@NotEmpty
+	@Pattern(regexp="^[A-Za-z]{5,10}$", message = "Introducir entre 5 y 10 caracteres")
 	private String autor;
+	@NotNull
 	private int paginas;
 	
 	@OneToMany(mappedBy="libro")
@@ -31,7 +36,12 @@ public class Libro implements Serializable{
 		//se utiliza para ajax gson jquery
 	
 	
-	@ManyToMany
+	
+	
+	 @ManyToMany(cascade = {
+		        CascadeType.PERSIST,
+		        CascadeType.MERGE
+		    })
 	@JoinTable(
 			name="CategoriaLibro",
 			joinColumns = @JoinColumn(name = "libro_titulo"),
