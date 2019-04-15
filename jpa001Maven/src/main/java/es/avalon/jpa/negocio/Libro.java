@@ -39,10 +39,7 @@ public class Libro implements Serializable{
 	
 	//EN QUE CLASE ESTOY EN LA DE LIBROS -->joinColumns = @JoinColumn(name = "libro_titulo") 
 	//LA CLASE CONTRARIA ES CATEGORIAS --> inverseJoinColumns = @JoinColumn(name="categoria_id")
-	@ManyToMany(cascade = {
-		        CascadeType.PERSIST,
-		        CascadeType.MERGE
-		    })
+	@ManyToMany
 	@JoinTable(
 			name="CategoriaLibro",
 			joinColumns = @JoinColumn(name = "libro_titulo"),
