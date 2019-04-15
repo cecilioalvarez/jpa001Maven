@@ -6,6 +6,7 @@
  <persistence-unit name="UnidadBiblioteca">
  <class>es.avalon.jpa.negocio.Libro</class>
  <class>es.avalon.jpa.negocio.Capitulo</class>
+  <class>es.avalon.jpa.negocio.Categoria</class>
  <properties>
  <property name= "hibernate.show_sql" value="true" />
  <!-- Dialecto de la base de datos -->

@@ -5,19 +5,33 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Libro {
 	
 	@Id
+	@NotEmpty
+	@Pattern(regexp="^[A-Za-z]{1,10}$")
 	private String titulo;
 	private String autor;
 	private int paginas;
+	
 	//Se refiere a la propiedad libro de la clase capitulo
 	@OneToMany(mappedBy="libro")
-	private transient List<Capitulo> capitulos=new ArrayList<Capitulo>();
-
+	private List<Capitulo> capitulos=new ArrayList<Capitulo>();
+	
+	@ManyToMany
+	@JoinTable(name= "Categoria_Libro",
+				joinColumns = @JoinColumn(name="Libro_titulo"),
+				inverseJoinColumns = @JoinColumn(name="Categoria_id"))
+	private List<Categoria> categorias=new ArrayList<Categoria>();
+	
 	public Libro(String titulo, String autor, int paginas) {
 		super();
 		this.titulo = titulo;
@@ -56,6 +70,14 @@ public class Libro {
 	public void setCapitulos(List<Capitulo> capitulos) {
 		this.capitulos = capitulos;
 	}
+	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 
 	@Override
 	public int hashCode() {
@@ -90,6 +112,12 @@ public class Libro {
 	public void removeCapitulo(Capitulo c) {
 		this.capitulos.remove(c);
 	}
-
 	
+	public void addCategoria(Categoria c) {
+		categorias.add(c);
+	}
+
+	public void removeCategoria(Categoria c) {
+		categorias.remove(c);
+	}
 }
