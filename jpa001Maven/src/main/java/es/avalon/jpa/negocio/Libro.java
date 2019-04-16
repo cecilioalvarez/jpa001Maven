@@ -26,10 +26,10 @@ public class Libro implements Serializable{
 	@NotEmpty(message = "HOLA MUNDO")
 	@Pattern(regexp="^[A-Za-z]{5,10}$")
 	private String titulo;
-	@NotEmpty
-	@Pattern(regexp="^[A-Za-z]{5,10}$", message = "Introducir entre 5 y 10 caracteres")
+	//@NotEmpty
+	//@Pattern(regexp="^[A-Za-z]{5,10}$", message = "Introducir entre 5 y 10 caracteres")
 	private String autor;
-	@NotNull
+	//@NotNull
 	private int paginas;
 	
 	@JsonIgnore

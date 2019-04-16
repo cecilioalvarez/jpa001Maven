@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Capitulo implements Serializable {
 	//defino una propiedad que es un objeto complejo,SE OBTIENE TODO EL OBJETO ->@ManyToOne 
@@ -14,6 +16,8 @@ public class Capitulo implements Serializable {
 	@Id
 	private String titulo;
 	private int paginas;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="libro_titulo")
 	private Libro libro;
