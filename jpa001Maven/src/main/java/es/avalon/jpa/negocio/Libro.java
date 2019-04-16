@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Libros")
 public class Libro {
@@ -26,12 +28,14 @@ public class Libro {
 	
 	// Se refiere a la propieda libro de la clase capitulo
 	@OneToMany(mappedBy="libro")
+	@JsonIgnore
 	private List<Capitulo> capitulos;
 	
 	@ManyToMany
 	@JoinTable(name = "CategoriaLibro",
 			joinColumns = @JoinColumn(name="libro_titulo"),
 			inverseJoinColumns = @JoinColumn(name="categoria_id"))
+	@JsonIgnore
 	private List<Categoria> categorias = new ArrayList<Categoria>();
 	
 	public List<Capitulo> getCapitulos() {
