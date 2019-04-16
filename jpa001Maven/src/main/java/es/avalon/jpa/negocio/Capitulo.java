@@ -5,12 +5,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Capitulo {
 
 	@Id
 	private String titulo;
 	private int paginas;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="Libro_Titulo")
 	private Libro libro;

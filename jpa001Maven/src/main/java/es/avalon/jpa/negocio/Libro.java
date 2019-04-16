@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Libro {
 
@@ -21,8 +23,12 @@ public class Libro {
 	private String titulo;
 	private String autor;
 	private int pagina;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="libro") 	// se refiere a la propiedad de la clase capitulo
 	private List<Capitulo> capitulos = new ArrayList<Capitulo>(); //transient para que vaya en jquery JSON
+	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name="CategoriaLibro",
