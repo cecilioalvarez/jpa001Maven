@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Libro {
 	
@@ -21,9 +23,11 @@ public class Libro {
 	private String titulo;
 	private String autor;
 	private int paginas;
+	@JsonIgnore
 	@OneToMany(mappedBy="libro")  //relacion entre Libro Capitulo
 	//se refiere a la propiedad libro de la clase Capitulo
 	private List<Capitulo> capitulos = new ArrayList<Capitulo>();  // transient para que tirara JSON no fuera circulares.
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			  name = "categoriaLibro", 
