@@ -16,6 +16,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Libro implements Serializable{
 	//se refiere a la propiedad libro de la clase capitulo -->private Libro libro;
@@ -30,6 +32,7 @@ public class Libro implements Serializable{
 	@NotNull
 	private int paginas;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="libro")
 	private List<Capitulo> capitulos = new ArrayList<Capitulo>(); 
 	//private transient List<Capitulo> capitulos = new ArrayList<Capitulo>(); 
@@ -39,6 +42,7 @@ public class Libro implements Serializable{
 	
 	//EN QUE CLASE ESTOY EN LA DE LIBROS -->joinColumns = @JoinColumn(name = "libro_titulo") 
 	//LA CLASE CONTRARIA ES CATEGORIAS --> inverseJoinColumns = @JoinColumn(name="categoria_id")
+	@JsonIgnore
 	@ManyToMany(cascade = {
 		        CascadeType.PERSIST,
 		        CascadeType.MERGE
