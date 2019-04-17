@@ -1,6 +1,7 @@
 package es.avalon.jpa.negocio;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Libro {
@@ -26,11 +29,13 @@ public class Libro {
 	// se refiere a la propiedad libro de la clase capitulo
 	
 	@OneToMany(mappedBy="libro")
+	@JsonIgnore
 	private transient List<Capitulo> capitulos= new ArrayList<Capitulo>();
 	
 	@ManyToMany
 	@JoinTable(name="categorialibro",joinColumns=@JoinColumn(name="Libro_titulo"),
 	inverseJoinColumns=@JoinColumn(name="Categoria_id"))
+	@JsonIgnore
 	private List<Categoria> categorias=new ArrayList<Categoria>();
 	
 	public void addCategoria(Categoria c) {
